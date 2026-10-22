@@ -2,7 +2,7 @@
 
 > A governed lakehouse for semiconductor manufacturing test data: from raw sensor readings to trusted yield metrics, anomaly detection and plain-English questions answered with evaluated SQL.
 
-**Author:** Stanley Igwe, Senior Analytics Engineer (BEng/MSc Electrical & Electronic Engineering)
+**Author:** Stanley Igwe, Lead Data (Analytics) Engineer (BEng/MSc Electrical & Electronic Engineering) · [Portfolio](https://saigwe.github.io)
 **Stack:** Python · dbt Core · DuckDB (local and CI) · Databricks + Delta Lake (cloud) · scikit-learn · GitHub Actions
 **Status:** 🚧 Scaffolded. See [Roadmap](#roadmap).
 

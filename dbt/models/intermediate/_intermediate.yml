@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: int_sensor_stats
+    description: Per-sensor baseline statistics and usability flags.
+    columns:
+      - name: sensor_id
+        tests: [unique, not_null]
+      - name: missing_rate
+        tests: [not_null]
+
+  - name: int_readings_scored
+    description: Readings with z-score and out-of-control flag (|z| > var ooc_z_threshold, default 3).
+    tests:
+      - unique_combination:
+          arguments:
+            columns: [run_id, sensor_id]

@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: dim_process_step
+    columns:
+      - name: step_id
+        tests: [unique, not_null]
+
+  - name: dim_tool
+    columns:
+      - name: tool_id
+        tests: [unique, not_null]
+      - name: step_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_process_step')
+                field: step_id
+
+  - name: dim_sensor
+    description: One row per sensor, with usability flags (constant / mostly missing) exposed rather than filtered.
+    columns:
+      - name: sensor_id
+        tests: [unique, not_null]
+      - name: tool_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_tool')
+                field: tool_id
+
+  - name: dim_lot
+    columns:
+      - name: lot_id
+        tests: [unique, not_null]
+
+  - name: dim_wafer
+    columns:
+      - name: wafer_id
+        tests: [unique, not_null]
+      - name: run_id
+        tests: [unique, not_null]
+      - name: lot_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_lot')
+                field: lot_id
+
+  - name: fct_wafer_test
+    description: One row per wafer test run.
+    columns:
+      - name: run_id
+        tests: [unique, not_null]
+      - name: wafer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_wafer')
+                field: wafer_id
+
+  - name: fct_sensor_reading
+    description: One row per wafer test run x sensor.
+    tests:
+      - unique_combination:
+          arguments:
+            columns: [run_id, sensor_id]
+    columns:
+      - name: sensor_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_sensor')
+                field: sensor_id
+
+  - name: agg_yield_daily
+    description: The single yield definition by test date.
+    columns:
+      - name: test_date
+        tests: [unique, not_null]
+
+  - name: agg_yield_by_lot
+    columns:
+      - name: lot_id
+        tests: [unique, not_null]
+
+  - name: rpt_sensor_fail_signal
+    columns:
+      - name: sensor_id
+        tests: [unique, not_null]

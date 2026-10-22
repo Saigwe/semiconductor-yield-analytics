@@ -1,0 +1,22 @@
+name: bt2_yield
+version: "0.1.0"
+config-version: 2
+profile: bt2_yield
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  bt2_yield:
+    staging:
+      +schema: silver
+      +materialized: view
+    intermediate:
+      +schema: silver
+      +materialized: table
+    marts:
+      +schema: gold
+      +materialized: table

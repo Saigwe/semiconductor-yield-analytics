@@ -1,0 +1,10 @@
+{"id": "q01", "question": "What is the overall yield across all wafers?", "gold_sql": "select sum(wafers_passed) * 1.0 / sum(wafers_tested) as yield_rate from gold.agg_yield_daily"}
+{"id": "q02", "question": "How many wafers failed in total?", "gold_sql": "select sum(wafers_failed) as wafers_failed from gold.agg_yield_daily"}
+{"id": "q03", "question": "Which 5 lots had the lowest yield?", "gold_sql": "select lot_id, yield_rate from gold.agg_yield_by_lot order by yield_rate asc, lot_id limit 5"}
+{"id": "q04", "question": "Which 10 sensors show the strongest difference between failing and passing wafers?", "gold_sql": "select sensor_id, effect_size from gold.rpt_sensor_fail_signal order by signal_rank, sensor_id limit 10"}
+{"id": "q05", "question": "How many sensors are unusable because they are constant or mostly missing?", "gold_sql": "select count(*) as n_unusable from gold.dim_sensor where not is_usable"}
+{"id": "q06", "question": "On which date was yield lowest?", "gold_sql": "select test_date, yield_rate from gold.agg_yield_daily order by yield_rate asc, test_date limit 1"}
+{"id": "q07", "question": "Which process step has the most out-of-control readings?", "gold_sql": "select d.step_name, sum(case when f.is_out_of_control then 1 else 0 end) as n_ooc from gold.fct_sensor_reading f join gold.dim_sensor d on f.sensor_id = d.sensor_id group by d.step_name order by n_ooc desc, d.step_name limit 1"}
+{"id": "q08", "question": "What is the average number of missing readings per wafer for failing versus passing wafers?", "gold_sql": "select is_fail, avg(n_missing_readings) as avg_missing from gold.fct_wafer_test group by is_fail order by is_fail"}
+{"id": "q09", "question": "How many wafers are in each lot, for the first 5 lots?", "gold_sql": "select lot_id, n_wafers from gold.dim_lot order by lot_id limit 5"}
+{"id": "q10", "question": "Which tool has the most sensors in the top 20 fail-signal list?", "gold_sql": "select tool_id, count(*) as n from gold.rpt_sensor_fail_signal where signal_rank <= 20 group by tool_id order by n desc, tool_id limit 1"}

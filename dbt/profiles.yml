@@ -1,0 +1,16 @@
+# Kept in-repo so CI and reviewers can run it. Secrets come from environment variables only.
+bt2_yield:
+  target: duckdb
+  outputs:
+    duckdb:
+      type: duckdb
+      path: "{{ env_var('BT2_DUCKDB_PATH', '../warehouse/bt2.duckdb') }}"
+      threads: 4
+    databricks:
+      type: databricks
+      catalog: bt2
+      schema: gold
+      host: "{{ env_var('DATABRICKS_HOST', '') }}"
+      http_path: "{{ env_var('DATABRICKS_HTTP_PATH', '') }}"
+      token: "{{ env_var('DATABRICKS_TOKEN', '') }}"
+      threads: 4

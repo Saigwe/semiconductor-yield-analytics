@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_secom__runs
+    columns:
+      - name: run_id
+        tests: [unique, not_null]
+      - name: run_ts
+        tests: [not_null]
+
+  - name: stg_secom__sensor_readings
+    tests:
+      - unique_combination:
+          arguments:
+            columns: [run_id, sensor_id]
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_secom__runs')
+                field: run_id
+
+  - name: stg_context__lot_wafer_map
+    columns:
+      - name: run_id
+        tests: [unique, not_null]
+      - name: wafer_id
+        tests: [unique, not_null]
+
+  - name: stg_context__sensor_catalog
+    columns:
+      - name: sensor_id
+        tests: [unique, not_null]
+
+  - name: stg_context__tools
+    columns:
+      - name: tool_id
+        tests: [unique, not_null]
+
+  - name: stg_context__process_steps
+    columns:
+      - name: step_id
+        tests: [unique, not_null]

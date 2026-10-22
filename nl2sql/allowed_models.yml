@@ -1,0 +1,15 @@
+# The NL-to-SQL agent may ONLY read these gold models. Anything else is rejected before execution.
+allowed_models:
+  - gold.dim_wafer
+  - gold.dim_lot
+  - gold.dim_sensor
+  - gold.dim_tool
+  - gold.dim_process_step
+  - gold.fct_wafer_test
+  - gold.fct_sensor_reading
+  - gold.agg_yield_daily
+  - gold.agg_yield_by_lot
+  - gold.rpt_sensor_fail_signal
+rules:
+  - Yield must come from agg_yield_daily / agg_yield_by_lot (never recomputed).
+  - Read-only: a single SELECT statement; no DDL/DML.

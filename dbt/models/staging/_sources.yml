@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: bronze
+    description: Raw SECOM files and synthetic fab context, loaded by ingestion/*.py
+    tables:
+      - name: secom_runs
+        description: One row per SECOM test run (file line order). label_raw -1 = pass, 1 = fail.
+        columns:
+          - name: run_id
+            tests: [unique, not_null]
+          - name: label_raw
+            tests:
+              - accepted_values:
+                  arguments:
+                    values: [-1, 1]
+                    quote: false
+      - name: secom_sensor_readings
+        description: Long-format sensor readings, one row per run x sensor. NULL = missing (NaN in source).
+      - name: context_lot_wafer_map
+        description: SYNTHETIC wafer/lot assignment per run.
+      - name: context_sensor_catalog
+        description: SYNTHETIC process step, tool and parameter name per sensor.
+      - name: context_tools
+        description: SYNTHETIC tools.
+      - name: context_process_steps
+        description: SYNTHETIC process steps.

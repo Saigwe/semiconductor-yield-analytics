@@ -33,6 +33,7 @@ def read_readings(path: pathlib.Path) -> pd.DataFrame:
     wide = pd.read_csv(path, sep=r"\s+", header=None, na_values=["NaN"], engine="python")
     wide.index = wide.index + 1
     wide.columns = [c + 1 for c in wide.columns]
+    wide = wide.copy()  # defragment before reshaping
     long = (
         wide.rename_axis("run_id")
         .reset_index()

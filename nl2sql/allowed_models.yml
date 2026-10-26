@@ -10,6 +10,17 @@ allowed_models:
   - gold.agg_yield_daily
   - gold.agg_yield_by_lot
   - gold.rpt_sensor_fail_signal
+  - gold.rpt_yield_p_chart
+  - gold.ml_sensor_signal_significance
+  - gold.ml_wafer_anomaly_scores
 rules:
   - Yield must come from agg_yield_daily / agg_yield_by_lot (never recomputed).
   - Read-only: a single SELECT statement; no DDL/DML.
+descriptions:
+  gold.agg_yield_daily: THE yield by test date (wafers_passed / wafers_tested).
+  gold.agg_yield_by_lot: THE yield by lot. Lots are synthetic groupings of 25 wafers in test order.
+  gold.rpt_sensor_fail_signal: one row per usable sensor; Cohen's d between failing and passing wafers; signal_rank 1 = strongest.
+  gold.rpt_yield_p_chart: daily fail-rate p-chart; limits from the reference period (first half of runs).
+  gold.ml_sensor_signal_significance: multiple-testing checks on the fail signal (BH q value, label-shuffle null).
+  gold.ml_wafer_anomaly_scores: wafer risk scores; split = 'train' (reference period) or 'test'; anomaly_score is the walk-forward gradient-boosting score, 0 in train.
+  gold.dim_sensor: parameter_name, step and tool are SYNTHETIC context; SECOM sensors are anonymised.

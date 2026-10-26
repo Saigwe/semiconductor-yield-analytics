@@ -1,0 +1,3 @@
+guardrail,correct,cases
+Parser-based guardrail,28,28
+Legacy regex guardrail,21,28

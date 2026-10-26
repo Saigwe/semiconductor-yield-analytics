@@ -1,0 +1,171 @@
+{
+  "train_wafers": 784,
+  "train_fails": 67,
+  "test_wafers": 783,
+  "test_fails": 37,
+  "test_base_rate": 0.0473,
+  "test_from": "2008-09-11 08:58:00",
+  "sensors_used": 440,
+  "methods": {
+    "random": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.027,
+      "precision_top_10pct": 0.026,
+      "recall_top_10pct": 0.054,
+      "roc_auc": 0.437,
+      "average_precision": 0.042,
+      "roc_auc_ci": [
+        0.345,
+        0.53
+      ],
+      "average_precision_ci": [
+        0.029,
+        0.07
+      ]
+    },
+    "spc_ooc_count": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.054,
+      "precision_top_10pct": 0.051,
+      "recall_top_10pct": 0.108,
+      "roc_auc": 0.474,
+      "average_precision": 0.049,
+      "roc_auc_ci": [
+        0.377,
+        0.568
+      ],
+      "average_precision_ci": [
+        0.032,
+        0.083
+      ]
+    },
+    "isolation_forest": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.081,
+      "precision_top_10pct": 0.051,
+      "recall_top_10pct": 0.108,
+      "roc_auc": 0.528,
+      "average_precision": 0.057,
+      "roc_auc_ci": [
+        0.422,
+        0.629
+      ],
+      "average_precision_ci": [
+        0.036,
+        0.097
+      ]
+    },
+    "logistic_l2": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.027,
+      "precision_top_10pct": 0.038,
+      "recall_top_10pct": 0.081,
+      "roc_auc": 0.573,
+      "average_precision": 0.054,
+      "roc_auc_ci": [
+        0.499,
+        0.654
+      ],
+      "average_precision_ci": [
+        0.039,
+        0.079
+      ]
+    },
+    "spc_rolling_w100": {
+      "precision_at_10": 0.1,
+      "precision_at_n_fails": 0.081,
+      "precision_top_10pct": 0.051,
+      "recall_top_10pct": 0.108,
+      "roc_auc": 0.552,
+      "average_precision": 0.065,
+      "roc_auc_ci": [
+        0.45,
+        0.653
+      ],
+      "average_precision_ci": [
+        0.041,
+        0.126
+      ]
+    },
+    "spc_rolling_w200": {
+      "precision_at_10": 0.1,
+      "precision_at_n_fails": 0.081,
+      "precision_top_10pct": 0.09,
+      "recall_top_10pct": 0.189,
+      "roc_auc": 0.552,
+      "average_precision": 0.067,
+      "roc_auc_ci": [
+        0.439,
+        0.664
+      ],
+      "average_precision_ci": [
+        0.041,
+        0.128
+      ]
+    },
+    "spc_rolling_w400": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.108,
+      "precision_top_10pct": 0.103,
+      "recall_top_10pct": 0.216,
+      "roc_auc": 0.583,
+      "average_precision": 0.071,
+      "roc_auc_ci": [
+        0.485,
+        0.682
+      ],
+      "average_precision_ci": [
+        0.044,
+        0.127
+      ]
+    },
+    "wf_logistic_l2": {
+      "precision_at_10": 0.1,
+      "precision_at_n_fails": 0.081,
+      "precision_top_10pct": 0.077,
+      "recall_top_10pct": 0.162,
+      "roc_auc": 0.616,
+      "average_precision": 0.097,
+      "roc_auc_ci": [
+        0.526,
+        0.702
+      ],
+      "average_precision_ci": [
+        0.049,
+        0.178
+      ]
+    },
+    "wf_gbm": {
+      "precision_at_10": 0.3,
+      "precision_at_n_fails": 0.162,
+      "precision_top_10pct": 0.128,
+      "recall_top_10pct": 0.27,
+      "roc_auc": 0.664,
+      "average_precision": 0.147,
+      "roc_auc_ci": [
+        0.571,
+        0.757
+      ],
+      "average_precision_ci": [
+        0.08,
+        0.263
+      ]
+    },
+    "wf_isolation_forest": {
+      "precision_at_10": 0.0,
+      "precision_at_n_fails": 0.0,
+      "precision_top_10pct": 0.038,
+      "recall_top_10pct": 0.081,
+      "roc_auc": 0.524,
+      "average_precision": 0.05,
+      "roc_auc_ci": [
+        0.432,
+        0.617
+      ],
+      "average_precision_ci": [
+        0.033,
+        0.078
+      ]
+    }
+  }
+}

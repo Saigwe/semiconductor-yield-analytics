@@ -15,5 +15,32 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Fixture pipeline (bronze -> context -> dbt build -> NL-to-SQL benchmark self-check)
+      - name: Fixture pipeline (bronze -> context -> dbt build -> analysis -> guardrail + benchmark self-check -> pytest)
         run: make fixture-all
+
+  report:
+    # Builds the Evidence.dev report from the committed real-data CSVs (reports/sources/secom) and, on main,
+    # publishes the static site to the report-site branch, which the portfolio site copies.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: reports
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --no-audit --no-fund
+      - run: npm run sources
+      - run: npm run build
+      - run: find build -maxdepth 3 | head -30
+      - name: Publish to the report-site branch
+        if: github.event_name == 'push'
+        run: |
+          cd build
+          git init -q -b report-site
+          git add -A
+          git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com commit -qm "Evidence build of ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" report-site

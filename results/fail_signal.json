@@ -1,0 +1,91 @@
+{
+  "sensors_tested": 440,
+  "fails": 104,
+  "passes": 1463,
+  "pass_fdr_5pct": 22,
+  "beat_shuffle_max_95pct": 5,
+  "shuffle_max_abs_d_95pct": 0.464,
+  "shuffles": 500,
+  "top10": [
+    {
+      "signal_rank": 1,
+      "sensor_id": 60,
+      "parameter_name": "overlay_y_s060",
+      "effect_size": 0.6319,
+      "q_value": 0.0001,
+      "beats_shuffle_max": true
+    },
+    {
+      "signal_rank": 2,
+      "sensor_id": 104,
+      "parameter_name": "endpoint_time_s104",
+      "effect_size": 0.6137,
+      "q_value": 0.0001,
+      "beats_shuffle_max": true
+    },
+    {
+      "signal_rank": 3,
+      "sensor_id": 511,
+      "parameter_name": "contact_resistance_s511",
+      "effect_size": 0.5326,
+      "q_value": 0.0118,
+      "beats_shuffle_max": true
+    },
+    {
+      "signal_rank": 4,
+      "sensor_id": 349,
+      "parameter_name": "pad_pressure_s349",
+      "effect_size": 0.5233,
+      "q_value": 0.1331,
+      "beats_shuffle_max": true
+    },
+    {
+      "signal_rank": 5,
+      "sensor_id": 432,
+      "parameter_name": "tilt_angle_s432",
+      "effect_size": 0.4907,
+      "q_value": 0.1649,
+      "beats_shuffle_max": true
+    },
+    {
+      "signal_rank": 6,
+      "sensor_id": 435,
+      "parameter_name": "energy_s435",
+      "effect_size": 0.4547,
+      "q_value": 0.2469,
+      "beats_shuffle_max": false
+    },
+    {
+      "signal_rank": 7,
+      "sensor_id": 431,
+      "parameter_name": "energy_s431",
+      "effect_size": 0.4463,
+      "q_value": 0.2298,
+      "beats_shuffle_max": false
+    },
+    {
+      "signal_rank": 8,
+      "sensor_id": 436,
+      "parameter_name": "tilt_angle_s436",
+      "effect_size": 0.4422,
+      "q_value": 0.2621,
+      "beats_shuffle_max": false
+    },
+    {
+      "signal_rank": 9,
+      "sensor_id": 22,
+      "parameter_name": "focus_offset_s022",
+      "effect_size": 0.4398,
+      "q_value": 0.0687,
+      "beats_shuffle_max": false
+    },
+    {
+      "signal_rank": 10,
+      "sensor_id": 29,
+      "parameter_name": "exposure_dose_s029",
+      "effect_size": -0.4348,
+      "q_value": 0.0021,
+      "beats_shuffle_max": false
+    }
+  ]
+}

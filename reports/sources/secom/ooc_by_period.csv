@@ -1,0 +1,5 @@
+period,outcome,avg_out_of_control,wafers
+Later half,Fail,10.567567567567568,37
+Later half,Pass,10.863270777479892,746
+Reference (first half),Fail,6.2388059701492535,67
+Reference (first half),Pass,4.393305439330544,717

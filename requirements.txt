@@ -6,3 +6,6 @@ numpy>=1.26
 scikit-learn>=1.5
 pyyaml>=6.0
 # Cloud target (optional): pip install dbt-databricks
+anthropic>=2.0,<3
+scipy>=1.13
+pytest>=8.0

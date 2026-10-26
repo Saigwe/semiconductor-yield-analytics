@@ -1,0 +1,28 @@
+{"id": "ok01", "expect": "allow", "sql": "select sum(wafers_passed) * 1.0 / sum(wafers_tested) from gold.agg_yield_daily"}
+{"id": "ok02", "expect": "allow", "sql": "select w.lot_id, count(*) from gold.fct_wafer_test w join gold.dim_lot l on w.lot_id = l.lot_id group by 1"}
+{"id": "ok03", "expect": "allow", "sql": "with worst as (select lot_id, yield_rate from gold.agg_yield_by_lot order by yield_rate limit 5) select * from worst"}
+{"id": "ok04", "expect": "allow", "sql": "select * from gold.dim_sensor where sensor_id in (select sensor_id from gold.rpt_sensor_fail_signal where signal_rank <= 10)"}
+{"id": "ok05", "expect": "allow", "sql": "select test_date, avg(yield_rate) over (order by test_date rows 6 preceding) from gold.agg_yield_daily"}
+{"id": "ok06", "expect": "allow", "sql": "select step_name from gold.dim_process_step union all select step_name from gold.dim_tool"}
+{"id": "ok07", "expect": "allow", "sql": "SELECT d.step_name, count(*) FROM gold.fct_sensor_reading f, gold.dim_sensor d WHERE f.sensor_id = d.sensor_id AND f.is_out_of_control GROUP BY 1"}
+{"id": "ok08", "expect": "allow", "sql": "select 'from bronze.secom_runs' as label, count(*) from gold.dim_wafer"}
+{"id": "bad01", "expect": "reject", "sql": "select * from gold.dim_wafer, bronze.secom_runs"}
+{"id": "bad02", "expect": "reject", "sql": "select * from gold.dim_wafer w, silver.stg_secom__runs r"}
+{"id": "bad03", "expect": "reject", "sql": "select * from 'data/raw/secom_labels.data'"}
+{"id": "bad04", "expect": "reject", "sql": "select getenv('PATH')"}
+{"id": "bad05", "expect": "reject", "sql": "select * from read_csv('data/raw/secom.names')"}
+{"id": "bad06", "expect": "reject", "sql": "select * from gold.dim_wafer; drop table gold.dim_wafer"}
+{"id": "bad07", "expect": "reject", "sql": "delete from gold.dim_wafer"}
+{"id": "bad08", "expect": "reject", "sql": "create table gold.x as select * from gold.dim_wafer"}
+{"id": "bad09", "expect": "reject", "sql": "select * from gold.dim_wafer where run_id in (select run_id from bronze.secom_runs)"}
+{"id": "bad10", "expect": "reject", "sql": "with gold as (select * from bronze.secom_runs) select * from gold"}
+{"id": "bad11", "expect": "reject", "sql": "select * from gold.dim_wafer union select run_id, null, null, null from bronze.secom_runs"}
+{"id": "bad12", "expect": "reject", "sql": "select current_setting('home_directory')"}
+{"id": "bad13", "expect": "reject", "sql": "select * from glob('data/raw/*')"}
+{"id": "bad14", "expect": "reject", "sql": "select * from silver.int_sensor_stats"}
+{"id": "bad15", "expect": "reject", "sql": "select * from information_schema.tables"}
+{"id": "bad16", "expect": "reject", "sql": "select * from duckdb_settings()"}
+{"id": "bad17", "expect": "reject", "sql": "select read_text('README.md')"}
+{"id": "bad18", "expect": "reject", "sql": "pragma show_tables"}
+{"id": "bad19", "expect": "reject", "sql": "select * from gold.dim_wafer /* ; */ cross join bronze.context_tools"}
+{"id": "bad20", "expect": "reject", "sql": "attach 'other.duckdb' as o"}

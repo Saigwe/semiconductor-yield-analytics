@@ -24,7 +24,8 @@
 - `stg_context__lot_wafer_map`, `stg_context__sensor_catalog`, `stg_context__tools`, `stg_context__process_steps`
 
 ### Intermediate (tables)
-- `int_sensor_stats` (grain: sensor): n, missing rate, mean, standard deviation, min, max, `is_constant`, `is_mostly_missing`
+- `int_runs` (grain: run): time order (`run_seq`) and `is_reference_period`, the first half of runs by test time (var `reference_frac`)
+- `int_sensor_stats` (grain: sensor): missing rate over all runs; control-limit mean and standard deviation from **reference-period passing wafers only**, so no wafer is scored against later data; `is_constant`, `is_mostly_missing`
 - `int_readings_scored` (grain: run × sensor): z-score, `is_out_of_control` (|z| > 3; NULL when the sensor is constant or the reading is missing)
 
 ### Marts (tables)
@@ -33,6 +34,11 @@
 - `fct_wafer_test` (grain: run): `is_fail`, `run_ts`, `lot_id`, `n_missing_readings`, `n_out_of_control`
 - `agg_yield_daily` (grain: test date), `agg_yield_by_lot` (grain: lot)
 - `rpt_sensor_fail_signal` (grain: sensor): mean for passing vs failing wafers, pooled standard deviation, effect size, rank
+- `rpt_yield_p_chart` (grain: test date): daily fail rate with 3-sigma p-chart limits from the reference period
+
+### Written by Python (gold, after dbt)
+- `ml_wafer_anomaly_scores` (grain: run): wafer risk scores from `analysis/anomaly_detection.py`
+- `ml_sensor_signal_significance` (grain: sensor): q values and the label-shuffle check from `analysis/fail_signal_significance.py`
 
 ## Tests
 - **Keys:** `unique` and `not_null` on every primary key; `relationships` for every foreign key.
@@ -43,6 +49,8 @@
   - `assert_every_wafer_has_readings`
   - `assert_lot_wafer_counts_match`
   - `assert_no_future_test_timestamps`
+  - `assert_p_chart_limits_ordered`
+- **Unit test:** `control_limits_use_only_reference_passing_wafers` (failing and later wafers must not move a sensor's limits)
 
 ## Databricks specifics (when you run it in the cloud)
 - **Schemas:** `bt2.bronze`, `bt2.silver`, `bt2.gold` in Unity Catalog (Free Edition supports Unity Catalog [Check]).

@@ -88,3 +88,9 @@ models:
     columns:
       - name: sensor_id
         tests: [unique, not_null]
+
+  - name: rpt_yield_p_chart
+    description: Daily fail-rate p-chart with 3-sigma limits from the reference period.
+    columns:
+      - name: test_date
+        tests: [unique, not_null]

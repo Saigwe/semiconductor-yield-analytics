@@ -1,0 +1,19 @@
+{
+  "cases": 28,
+  "attacks": 20,
+  "legitimate": 8,
+  "parser_correct": 28,
+  "legacy_correct": 21,
+  "legacy_attacks_let_through": [
+    "bad01",
+    "bad02",
+    "bad03",
+    "bad04",
+    "bad12",
+    "bad17"
+  ],
+  "legacy_legit_blocked": [
+    "ok08"
+  ],
+  "parser_errors": []
+}

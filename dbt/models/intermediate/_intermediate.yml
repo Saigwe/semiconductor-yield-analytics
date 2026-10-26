@@ -1,8 +1,16 @@
 version: 2
 
 models:
+  - name: int_runs
+    description: One row per run, with time order and the SPC reference period (first half of runs by default).
+    columns:
+      - name: run_id
+        tests: [unique, not_null]
+      - name: run_seq
+        tests: [unique, not_null]
+
   - name: int_sensor_stats
-    description: Per-sensor baseline statistics and usability flags.
+    description: Per-sensor control limits (reference-period passing wafers only) and usability flags.
     columns:
       - name: sensor_id
         tests: [unique, not_null]
@@ -15,3 +23,26 @@ models:
       - unique_combination:
           arguments:
             columns: [run_id, sensor_id]
+
+unit_tests:
+  - name: control_limits_use_only_reference_passing_wafers
+    description: Fails and wafers after the reference period must not move a sensor's mean or standard deviation.
+    model: int_sensor_stats
+    given:
+      - input: ref('stg_secom__sensor_readings')
+        rows:
+          - {run_id: 1, sensor_id: 1, reading_value: 10.0, is_missing: false}
+          - {run_id: 2, sensor_id: 1, reading_value: 12.0, is_missing: false}
+          - {run_id: 3, sensor_id: 1, reading_value: 99.0, is_missing: false}
+          - {run_id: 4, sensor_id: 1, reading_value: 500.0, is_missing: false}
+          - {run_id: 5, sensor_id: 1, reading_value: null, is_missing: true}
+      - input: ref('int_runs')
+        rows:
+          - {run_id: 1, is_fail: false, is_reference_period: true}
+          - {run_id: 2, is_fail: false, is_reference_period: true}
+          - {run_id: 3, is_fail: true, is_reference_period: true}
+          - {run_id: 4, is_fail: false, is_reference_period: false}
+          - {run_id: 5, is_fail: false, is_reference_period: false}
+    expect:
+      rows:
+        - {sensor_id: 1, n_runs: 5, n_missing: 1, n_reference: 2, mean_value: 11.0, is_constant: false}

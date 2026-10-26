@@ -11,14 +11,17 @@ with reading_counts as (
 
 select
     r.run_id,
+    u.run_seq,
     w.wafer_id,
     w.lot_id,
     r.run_ts,
     r.test_date,
     r.is_fail,
+    u.is_reference_period,
     coalesce(c.n_readings, 0)          as n_readings,
     coalesce(c.n_missing_readings, 0)  as n_missing_readings,
     coalesce(c.n_out_of_control, 0)    as n_out_of_control
 from {{ ref('stg_secom__runs') }} r
 join {{ ref('dim_wafer') }} w on r.run_id = w.run_id
+join {{ ref('int_runs') }} u on r.run_id = u.run_id
 left join reading_counts c on r.run_id = c.run_id

@@ -1,0 +1,1 @@
+[{"name":"period","evidenceType":"string","typeFidelity":"precise"},{"name":"outcome","evidenceType":"string","typeFidelity":"precise"},{"name":"avg_out_of_control","evidenceType":"number","typeFidelity":"precise"},{"name":"wafers","evidenceType":"number","typeFidelity":"precise"}]

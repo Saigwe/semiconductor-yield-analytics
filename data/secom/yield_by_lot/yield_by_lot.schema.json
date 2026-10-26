@@ -1,0 +1,1 @@
+[{"name":"lot_id","evidenceType":"string","typeFidelity":"precise"},{"name":"wafers_tested","evidenceType":"number","typeFidelity":"precise"},{"name":"wafers_failed","evidenceType":"number","typeFidelity":"precise"},{"name":"wafers_passed","evidenceType":"number","typeFidelity":"precise"},{"name":"yield_rate","evidenceType":"number","typeFidelity":"precise"}]

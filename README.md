@@ -82,7 +82,7 @@ Databricks: set `DATABRICKS_HOST`, `DATABRICKS_HTTP_PATH` and `DATABRICKS_TOKEN`
 - [ ] Databricks Free Edition run (Delta, bronze/silver/gold schemas), with runtime and cost notes
 - [ ] Anomaly model evaluation (precision@k, time-based split)
 - [ ] NL-to-SQL agent restricted to gold models, plus benchmark results
-- [ ] Dashboard (yield trend, sensor Pareto) and a 3-minute Loom walkthrough
+- [ ] Dashboard (yield trend, sensor Pareto) and a 3-minute Loom walkthrough ([script ready](docs/walkthrough.md))
 
 ## Data and licence
 - **SECOM:** McCann, M. & Johnston, A. (2008). *SECOM* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C54305. Licensed **CC BY 4.0**.

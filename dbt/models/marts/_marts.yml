@@ -62,7 +62,7 @@ models:
   - name: fct_sensor_reading
     description: One row per wafer test run x sensor.
     tests:
-      - unique_combination:
+      - trust_tests.unique_combination:
           arguments:
             columns: [run_id, sensor_id]
     columns:

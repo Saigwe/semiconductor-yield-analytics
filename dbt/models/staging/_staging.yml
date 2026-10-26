@@ -10,7 +10,7 @@ models:
 
   - name: stg_secom__sensor_readings
     tests:
-      - unique_combination:
+      - trust_tests.unique_combination:
           arguments:
             columns: [run_id, sensor_id]
     columns:

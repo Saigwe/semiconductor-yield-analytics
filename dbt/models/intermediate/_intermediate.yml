@@ -20,7 +20,7 @@ models:
   - name: int_readings_scored
     description: Readings with z-score and out-of-control flag (|z| > var ooc_z_threshold, default 3).
     tests:
-      - unique_combination:
+      - trust_tests.unique_combination:
           arguments:
             columns: [run_id, sensor_id]
 

@@ -23,7 +23,8 @@ context:
 	$(PY) ingestion/generate_context.py --db $(DB)
 
 dbt:
-	$(DBT) deps --profiles-dir . && $(DBT) build --profiles-dir .
+	$(DBT) deps --profiles-dir .
+	$(DBT) build --profiles-dir .
 
 analysis:   ## wafer ranking on a time split, and multiple-testing checks on the sensor ranking
 	$(PY) analysis/anomaly_detection.py --db $(DB) --out $(RESULTS)

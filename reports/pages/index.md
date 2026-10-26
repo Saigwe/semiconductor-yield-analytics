@@ -27,7 +27,7 @@ from secom.yield_p_chart order by test_date
 ```
 
 <LineChart data={p_chart} x=test_date y={['fail_rate', 'upper_limit', 'centre_line']} yFmt=pct0
-           title="Daily fail rate vs control limits" />
+           colorPalette={['#c2410c', '#94a3b8', '#475569']} title="Daily fail rate vs control limits" />
 
 ```sql signals
 select test_date, wafers_tested, wafers_failed, fail_rate, upper_limit
@@ -38,8 +38,8 @@ from secom.yield_p_chart where is_above_limit order by test_date
   <Column id=test_date title="Day above the limit" />
   <Column id=wafers_tested title="Wafers" />
   <Column id=wafers_failed title="Failed" />
-  <Column id=fail_rate title="Fail rate" fmt=pct0 />
-  <Column id=upper_limit title="Upper limit" fmt=pct0 />
+  <Column id=fail_rate title="Fail rate" fmt=pct1 />
+  <Column id=upper_limit title="Upper limit" fmt=pct1 />
 </DataTable>
 
 ```sql lots
@@ -84,6 +84,7 @@ from secom.sensor_signal order by signal_rank
 
 ```sql ooc
 select period, outcome, avg_out_of_control, wafers from secom.ooc_by_period
+order by case when period like 'Reference%' then 0 else 1 end, outcome
 ```
 
 <BarChart data={ooc} x=period y=avg_out_of_control series=outcome type=grouped sort=false yFmt=num1
